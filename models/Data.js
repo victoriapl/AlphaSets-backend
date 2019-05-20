@@ -10,7 +10,8 @@ const dataSchema = new mongoose.Schema(
       enum: ['rawData', 'dataSet']
     },
     industry: String,
-    timeFrame: String,
+    timeFrameFrom: String,
+    timeFrameTo: String,
     source: String,
     license: String,
     format: {
