@@ -26,14 +26,22 @@ router.post('/auth/login', (req, res, next) => {
   })(req, res, next)
 })
 
-router.get('/private', isLogged, (req, res, next) => {
-  res.status(200).json({ msg: 'You are in private mode' })
-})
-
 function isLogged(req, res, next) {
   if (!req.isAuthenticated()) return res.status(401).json({ msg: "You're not logged in. Please, log in." })
   next()
 }
+
+router.get('/auth/profile', isLogged, (req, res, next) => {
+  User.find(req.body)
+  .then(user => {
+    console.log(user)
+    res.status(200).json(user)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+})
 
 router.post('/data/addData', (req, res, next) =>{
   Data.create(req.body)
@@ -47,6 +55,15 @@ router.post('/data/addData', (req, res, next) =>{
 router.get('/data/marketplace', (req, res, next) => {
   Data.find(req.body)
   .then(data => res.status(200).json(data))
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+})
+
+router.get('/data/detail', (req, res, next) => {
+  Data.find(req.body)
+  .then(data => req.status(200).json(data))
   .catch(err => {
     console.log(err)
     res.status(500).json(err)
