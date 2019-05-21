@@ -31,19 +31,17 @@ function isLogged(req, res, next) {
   next()
 }
 
-router.get('/auth/profile', isLogged, (req, res, next) => {
-  User.find(req.body)
-  .then(user => {
-    console.log(user)
-    res.status(200).json(user)
-  })
-  .catch(err => {
-    console.log(err)
-    res.status(500).json(err)
-  })
+router.get('/auth/logout', isLogged, (req,res,next) => {
+  req.logOut()
+  res.status(200).json({msg: 'Please log in.'})
 })
 
-router.post('/data/addData', (req, res, next) =>{
+router.get('/auth/profile', isLogged, (req, res, next) => {
+  res.status(200).json({user: req.user})
+})
+
+
+router.post('/data/addData', isLogged, (req, res, next) =>{
   Data.create(req.body)
   .then(data => res.status(200).json(data))
   .catch(err => {
@@ -71,5 +69,6 @@ router.get('/data/detail', (req, res, next) => {
     res.status(500).json(err)
   })
 })
+
 
 module.exports = router
