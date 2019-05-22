@@ -10,7 +10,6 @@ router.post('/auth/signup', (req, res, next) => {
   User.register(req.body, req.body.password)
     .then(user => res.status(200).json(user))
     .catch(err => {
-      console.log(err)
       res.status(500).json(err)
     })
 })
@@ -45,7 +44,6 @@ router.post('/data/addData', isLogged, (req, res, next) =>{
   Data.create(req.body)
   .then(data => res.status(200).json(data))
   .catch(err => {
-    console.log(err)
     res.status(500).json(err)
   })
 })
@@ -54,7 +52,6 @@ router.get('/data/marketplace', (req, res, next) => {
   Data.find(req.body)
   .then(data => res.status(200).json(data))
   .catch(err => {
-    console.log(err)
     res.status(500).json(err)
   })
 })
@@ -65,7 +62,6 @@ router.get('/data/detail', (req, res, next) => {
     res.status(200).json(data)
   })
   .catch(err => {
-    console.log(err)
     res.status(500).json(err)
   })
 })
