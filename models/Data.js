@@ -14,6 +14,7 @@ const dataSchema = new mongoose.Schema(
     timeFrameTo: String,
     source: String,
     license: String,
+    fileName: String,
     format: {
       type: String,
       enum: ['CSV', 'JSON', 'SQL', 'XLS', 'N-triples', 'RDF']
